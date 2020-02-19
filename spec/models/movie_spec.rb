@@ -8,4 +8,7 @@ RSpec.describe Movie, type: :model do
   it { should validate_presence_of(:votes) }
   it { should validate_presence_of(:poster_url) }
   it { should validate_presence_of(:release_date) }
+  it { should validate_presence_of(:mdb_id) }
+
+  it { should validate_uniqueness_of(:mdb_id) }
 end

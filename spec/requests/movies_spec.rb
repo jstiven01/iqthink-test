@@ -53,7 +53,7 @@ RSpec.describe 'Movie API', type: :request do
   describe 'POST /movies' do
     # valid payload
     let(:valid_attributes) { { title: 'Learn Elm', overview: 'Lorem Ipsum',
-        votes: 52, poster_url:"http//fake.url", release_date: '2020-01-01' } }
+        votes: 52, poster_url:"http//fake.url", release_date: '2020-01-01', mdb_id: 5 } }
 
     context 'when the request is valid' do
       before { post '/movies', params: valid_attributes }

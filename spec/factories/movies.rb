@@ -5,5 +5,6 @@ FactoryGirl.define do
       votes { rand(2500) }
       poster_url { UiFaces.face }
       release_date { Faker::Date.between(from: 15.days.ago, to: Date.today) }
+      mdb_id { rand(2500) }
     end
   end

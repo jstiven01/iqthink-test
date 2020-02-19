@@ -1,10 +1,10 @@
 const initialState = {
     loading: false,
-    movie: {},
+    movies: [],
     error: '',
   };
   
-  const movieReducer = (state = initialState, action) => {
+  const moviesReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'MOVIE_REQUEST':
         return {
@@ -14,26 +14,27 @@ const initialState = {
       case 'GET_MOVIE_SUCCESS':
         return {
           loading: false,
-          movie: action.payload,
+          movies: action.payload,
           error: '',
         };
       case 'GET_MOVIE_FAILURE':
         return {
           loading: false,
-          movie: [],
+          movies: [],
           error: action.payload,
         };
   
       case 'POST_MOVIE_SUCCESS':
         return {
+          ...state,
           loading: false,
-          movie: [...state.movie, action.payload],
-          error: '',
+          message: action.payload,
         };
+
       case 'POST_MOVIE_FAILURE':
         return {
           loading: false,
-          movie: [],
+          movies: [],
           error: action.payload,
         };
   
@@ -41,4 +42,4 @@ const initialState = {
     }
   };
   
-  export default movieReducer;
+  export default moviesReducer;
