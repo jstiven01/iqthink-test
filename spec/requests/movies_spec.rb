@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Movie API', type: :request do
-  # initialize test data 
+  # initialize test data
   let!(:movies) { create_list(:movie, 10) }
   let(:movie_id) { movies.first.id }
 
@@ -52,8 +52,10 @@ RSpec.describe 'Movie API', type: :request do
   # Test suite for POST /movies
   describe 'POST /movies' do
     # valid payload
-    let(:valid_attributes) { { title: 'Learn Elm', overview: 'Lorem Ipsum',
-        votes: 52, poster_url:"http//fake.url", release_date: '2020-01-01', mdb_id: 5 } }
+    let(:valid_attributes) do
+      { title: 'Learn Elm', overview: 'Lorem Ipsum',
+        votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01', mdb_id: 5 }
+    end
 
     context 'when the request is valid' do
       before { post '/movies', params: valid_attributes }
@@ -68,8 +70,10 @@ RSpec.describe 'Movie API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/movies', params: { title: 'Foobar',
-        votes: 52, poster_url:"http//fake.url", release_date: '2020-01-01' } }
+      before do
+        post '/movies', params: { title: 'Foobar',
+                                  votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01' }
+      end
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -81,7 +85,4 @@ RSpec.describe 'Movie API', type: :request do
       end
     end
   end
-
-
-
 end

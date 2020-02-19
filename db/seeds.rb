@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+100.times do |i|
+    Movie.create(
+        title:  Faker::Book.title ,
+        overview: Faker::Movie.quote ,
+        votes:  rand(2500) ,
+        poster_url:  UiFaces.face ,
+        release_date:  Faker::Date.between(from: 15.days.ago, to: Date.today) ,
+        mdb_id:  rand(2500) 
+    )
+end
