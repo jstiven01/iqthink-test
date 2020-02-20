@@ -37,8 +37,10 @@ RSpec.describe 'Search API', type: :request do
   describe 'POST /searches' do
     # valid payload
     let(:valid_attributes) do
-      { title: 'Learn Elm', overview: 'Lorem Ipsum',
-        votes: 52 }
+      {
+        search: { title: 'Learn Elm', overview: 'Lorem Ipsum',
+                  votes: 52 }
+      }
     end
 
     context 'when the request is valid' do

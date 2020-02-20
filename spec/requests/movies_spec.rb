@@ -52,9 +52,18 @@ RSpec.describe 'Movie API', type: :request do
   # Test suite for POST /movies
   describe 'POST /movies' do
     # valid payload
+
     let(:valid_attributes) do
-      { title: 'Learn Elm', overview: 'Lorem Ipsum',
-        votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01', mdb_id: 5 }
+      {
+        movie: { title: 'Learn Elm', overview: 'Lorem Ipsum',
+                 votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01', mdb_id: 5 }
+      }
+    end
+
+    let(:invalid_attributes) do
+      {
+        movie: { title: 'Learn Elm', votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01' }
+      }
     end
 
     context 'when the request is valid' do
@@ -71,8 +80,8 @@ RSpec.describe 'Movie API', type: :request do
 
     context 'when the request is invalid' do
       before do
-        post '/movies', params: { title: 'Foobar',
-                                  votes: 52, poster_url: 'http//fake.url', release_date: '2020-01-01' }
+        post '/movies', params:
+        invalid_attributes
       end
 
       it 'returns status code 422' do
