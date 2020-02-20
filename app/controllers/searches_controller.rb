@@ -13,7 +13,7 @@ class SearchesController < ApplicationController
 
   def search_params
     # whitelist params
-    params.permit(:title, :overview, :votes)
+    params.permit(:title, :overview, :votes, :filter, :start_date, :final_date)
   end
 
   def set_search

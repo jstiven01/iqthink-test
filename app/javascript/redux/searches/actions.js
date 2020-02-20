@@ -44,7 +44,7 @@ export const getResultSearch = (id) => dispatch => {
 } 
 
 
-export const postSearch = (title, overview, voteCount) => dispatch => {
+export const postSearch = (title, overview, voteCount, filter, startDate, finalDate) => dispatch => {
   dispatch(searchRequest());
   console.log('post search bef', title)
   axios
@@ -54,6 +54,9 @@ export const postSearch = (title, overview, voteCount) => dispatch => {
       title,
       overview,
       votes: voteCount,
+      filter,
+      start_date: startDate,
+      final_date: finalDate,
     },
     { withCredentials: true },
   )
