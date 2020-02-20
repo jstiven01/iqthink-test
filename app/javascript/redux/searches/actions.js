@@ -25,49 +25,46 @@ export const postSearchFailure = error => ({
   payload: error,
 });
 
-export const getResultSearch = (id) => dispatch => {
-    dispatch(searchRequest());
-    axios
+export const getResultSearch = id => dispatch => {
+  dispatch(searchRequest());
+  axios
     .get(
       `/searches/${id}`,
       { withCredentials: true },
     )
     .then(response => {
-        console.log('search get response', response)
-        dispatch(getSearchSuccess(response.data));
-    })  
+      dispatch(getSearchSuccess(response.data));
+    })
     .catch(error => {
       // error.message is the error message
       dispatch(getSearchFailure(error.message));
     });
+};
 
-} 
 
-
-export const postSearch = (title, overview, voteCount, filter, startDate, finalDate) => dispatch => {
+export const postSearch = (title, overview,
+  voteCount, filter, startDate, finalDate) => dispatch => {
   dispatch(searchRequest());
-  console.log('post search bef', title)
   axios
-  .post(
-    '/searches',
-    {
-      title,
-      overview,
-      votes: voteCount,
-      filter,
-      start_date: startDate,
-      final_date: finalDate,
-    },
-    { withCredentials: true },
-  )
-  .then(response => {
-      console.log('search post response', response.data.id)
-      dispatch(getResultSearch(response.data.id))
-  })  
-  .catch(error => {
+    .post(
+      '/searches',
+      {
+        search: {
+          title,
+          overview,
+          votes: voteCount,
+          filter,
+          start_date: startDate,
+          final_date: finalDate,
+        },
+      },
+      { withCredentials: true },
+    )
+    .then(response => {
+      dispatch(getResultSearch(response.data.id));
+    })
+    .catch(error => {
     // error.message is the error message
-    dispatch(postSearchFailure(error.message));
-  });
-}
-
-
+      dispatch(postSearchFailure(error.message));
+    });
+};

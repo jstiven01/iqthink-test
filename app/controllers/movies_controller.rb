@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
 
   def movie_params
     # whitelist params
-    params.permit(:title, :overview, :votes, :poster_url, :release_date, :mdb_id)
+    params.require(:movie).permit(:title, :overview, :votes, :poster_url, :release_date, :mdb_id)
   end
 
   def set_movie

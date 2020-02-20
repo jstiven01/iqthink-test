@@ -6,6 +6,7 @@
     },
     "parserOptions": {
       "ecmaFeatures": {
+        "destructuring": false,
         "jsx": true
       },
       "ecmaVersion": 2018,

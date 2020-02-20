@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { postSearch } from '../redux/searches/actions';
 
 const Search = ({ searchData, postSearch }) => {
@@ -21,30 +22,38 @@ const Search = ({ searchData, postSearch }) => {
   };
 
   const handleSubmit = event => {
-    console.log(event);
     event.preventDefault();
-    postSearch(form.title, form.overview, form.votes, form.filterDate, form.startDate, form.finalDate);
+    postSearch(form.title, form.overview,
+      form.votes, form.filterDate,
+      form.startDate, form.finalDate);
   };
 
-  console.log('search data', searchData);
   const jsxSearchData = searchData.search.map(sch => (
-    <div key={sch.id}>
-      <div>
-        Title:
-        {sch.title}
+    <div key={sch.id} className="card">
+      <div className="card-body">
+        <div className="card-title">
+          Title:
+          {sch.title}
+        </div>
+        <div className="card-text">
+          Overview:
+          {sch.overview}
+        </div>
+        <div>
+          Votes:
+          {sch.votes}
+        </div>
+        <div>
+          Release Date :
+          {new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+          }).format(new Date(sch.release_date)).replace(',', '')}
+        </div>
+
       </div>
-      <div>
-        Overview:
-        {sch.overview}
-      </div>
-      <div>
-        Votes:
-        {sch.votes}
-      </div>
-      <div>
-        Release Date:
-        {sch.release_date}
-      </div>
+
 
     </div>
   ));
@@ -61,6 +70,7 @@ const Search = ({ searchData, postSearch }) => {
       </div>
     </div>
   );
+
   return (
     <div>
       <div>Local Search</div>
@@ -97,6 +107,7 @@ const Search = ({ searchData, postSearch }) => {
         <button type="submit" className="btn btn-primary">Search in Rails Database</button>
       </form>
       {jsxSearchData}
+
     </div>
   );
 };
@@ -106,7 +117,21 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  postSearch: (title, overview, votes, filter, startDate, finalDate) => dispatch(postSearch(title, overview, votes, filter, startDate, finalDate)),
+  postSearch: (title, overview,
+    votes, filter, startDate, finalDate) => dispatch(postSearch(title, overview, votes,
+    filter, startDate, finalDate)),
 });
+
+Search.propTypes = {
+  searchData: PropTypes.shape({
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+    message: PropTypes.string,
+    search: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+    })).isRequired,
+  }).isRequired,
+  postSearch: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

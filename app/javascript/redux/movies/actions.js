@@ -1,15 +1,18 @@
 import axios from 'axios';
 
-const processingDataSearch = (movieArray) => {
-  let newMovieArray = []
-  console.log('moviearra',movieArray)
+const processingDataSearch = movieArray => {
+  const newMovieArray = [];
   movieArray.forEach(element => {
-    const {id, original_title, overview, poster_path, vote_count, release_date} = element
-    newMovieArray.push({id, original_title, overview, poster_path, vote_count, release_date})
-    console.log(newMovieArray[0], element,'a')
+    const {
+      /* eslint-disable camelcase */
+      id, original_title, overview, poster_path, vote_count, release_date,
+    } = element;
+    newMovieArray.push({
+      id, original_title, overview, poster_path, vote_count, release_date,
+    });
   });
-  return newMovieArray
-}
+  return newMovieArray;
+};
 
 export const movieRequest = () => ({
   type: 'MOVIE_REQUEST',
@@ -35,83 +38,83 @@ export const postMoviesFailure = error => ({
   payload: error,
 });
 
+export const postMovieBackend = (title, overview,
+  posterPath, voteCount, releaseDate, mdbId) => dispatch => {
+  dispatch(movieRequest());
+  axios
+    .post(
+      '/movies',
+      {
+        movie: {
+          title,
+          overview,
+          votes: voteCount,
+          poster_url: posterPath,
+          release_date: releaseDate,
+          mdb_id: mdbId,
+        },
+
+      },
+    )
+    .then(response => {
+      dispatch(postMoviesSuccess(response.statusText));
+    })
+    .catch(error => {
+      // error.message is the error message
+      dispatch(postMoviesFailure(error.response.data.message));
+    });
+};
 
 
-export const postMovie = ( movieId) => dispatch => {
-    console.log('post ', movieId)
+export const postMovie = movieId => dispatch => {
   dispatch(movieRequest());
   axios
     .get(
       `http://api.themoviedb.org/3/movie/${movieId}`,
       {
-          params: {
-              api_key: "0ff5b80581bf1b540b658c2d699cc617"
-            }
+        params: {
+          api_key: '0ff5b80581bf1b540b658c2d699cc617',
+        },
       },
       { withCredentials: true },
     )
     .then(response => {
-      const {id, original_title, overview, poster_path, vote_count, release_date} = response.data;
-      dispatch(getMoviesSuccess([{id,original_title, overview, poster_path, vote_count, release_date}]))
-      console.log('heyyy', original_title, overview, poster_path, vote_count, release_date )
-      dispatch(postMovieBackend( original_title, overview, poster_path, vote_count, release_date))
-
+      const {
+        /* eslint-disable camelcase */
+        id, original_title, overview, poster_path, vote_count, release_date,
+      } = response.data;
+      dispatch(getMoviesSuccess([{
+        id, original_title, overview, poster_path, vote_count, release_date,
+      }]));
+      dispatch(postMovieBackend(original_title,
+        overview, poster_path,
+        vote_count, release_date, id));
     })
     .catch(error => {
       // error.message is the error message
-      dispatch(getMoviesFailure(error.message));
+      dispatch(getMoviesFailure(error.response.data.status_message));
     });
-
 };
 
-export const postMovieBackend = (title, overview, posterPath, voteCount, releaseDate) => dispatch => {
-  dispatch(movieRequest());
-  axios
-  .post(
-    '/movies',
-    {
-      title,
-      overview,
-      votes: voteCount,
-      poster_url: posterPath,
-      release_date: releaseDate
-    },
-    { withCredentials: true },
-  )
-  .then(response => {
-    dispatch(postMoviesSuccess(response.statusText));
-  })  
-  .catch(error => {
-    // error.message is the error message
-    dispatch(postMoviesFailure(error.message));
-  });
-}
 
-export const searchMovies = (name) => dispatch => {
+export const searchMovies = name => dispatch => {
   dispatch(movieRequest());
   axios
-  .get(
-    'https://api.themoviedb.org/3/search/movie',
-    {
+    .get(
+      'https://api.themoviedb.org/3/search/movie',
+      {
         params: {
-            api_key: "0ff5b80581bf1b540b658c2d699cc617",
-            query: name,
-          }
-    },
-    { withCredentials: true },
-  )
-  .then(response => {
-    //const {original_title, overview, poster_path, vote_count, release_date} = response.data;
-    //dispatch(getMoviesSuccess({original_title, overview, poster_path, vote_count, release_date}))
-    //console.log('heyyy search movies', response)
-    dispatch(getMoviesSuccess(processingDataSearch(response.data.results)));
-    //dispatch(postMovieBackend( original_title, overview, poster_path, vote_count, release_date))
-
-  })
-  .catch(error => {
+          api_key: '0ff5b80581bf1b540b658c2d699cc617',
+          query: name,
+        },
+      },
+      { withCredentials: true },
+    )
+    .then(response => {
+      dispatch(getMoviesSuccess(processingDataSearch(response.data.results)));
+    })
+    .catch(error => {
     // error.message is the error message
-    dispatch(getMoviesFailure(error.message));
-  });
-
-}
-
+      dispatch(getMoviesFailure(error.message));
+    });
+};
