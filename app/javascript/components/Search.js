@@ -76,11 +76,11 @@ const Search = ({ searchData, postSearch }) => {
       <div>Local Search</div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <input type="text" name="title" placeholder="Enter movie's title to search" onChange={handleChange} />
+          <input type="text" name="title" placeholder="Enter title to search" onChange={handleChange} />
         </div>
 
         <div className="form-group">
-          <input type="text" name="overview" placeholder="Enter movie's overview to search" onChange={handleChange} />
+          <input type="text" name="overview" placeholder="Enter overview to search" onChange={handleChange} />
         </div>
 
         <div className="form-group">
