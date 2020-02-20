@@ -10,6 +10,8 @@
 - Ruby 2.6.3p62
 - Postgresql
 - React
+- Redux
+- Redux Thunk
 - HTML
 - Bootstrap
 - CSS
@@ -32,7 +34,7 @@ In this repository are the back-end and frontend which were created with the web
 2. Get in to the folder app
 
 ```
-cd daily-food-intake
+cd upcoming-movies
 ```
 3. Prepare rails environment
 
