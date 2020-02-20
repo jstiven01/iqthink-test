@@ -18,7 +18,6 @@
 
 ## Live Demo
 
-Open the app in Mobile screen
 [Live Demo Link](https://protected-badlands-67060.herokuapp.com/)
 
 ## Installation
