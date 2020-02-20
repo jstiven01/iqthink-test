@@ -1,24 +1,69 @@
-# README
+# IQThink Test
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> This is the test from IQThink.
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## Built With
 
-* Configuration
+- Rails API 5.2.4.1
+- Ruby 2.6.3p62
+- Postgresql
+- React
+- HTML
+- Bootstrap
+- CSS
 
-* Database creation
+## Live Demo
 
-* Database initialization
+Open the app in Mobile screen
+[Live Demo Link](https://protected-badlands-67060.herokuapp.com/)
 
-* How to run the test suite
+## Installation
 
-* Services (job queues, cache servers, search engines, etc.)
+In this repository are the back-end and frontend which were created with the webpack=react flag that Rails offers.
 
-* Deployment instructions
+1. Clone the project to your local directory
 
-* ...
+```
+ git clone https://github.com/jstiven01/iqthink-test.git
+```
+
+2. Get in to the folder app
+
+```
+cd daily-food-intake
+```
+3. Prepare rails environment
+
+```
+bundle install --without production
+rails db:create
+rails db:migrate
+```
+
+4. run rails server
+
+```
+rails s
+```
+
+5. Go to Localhost in your favorite browser
+
+```
+http://localhost:3000/
+```
+
+### Run tests
+
+```
+rspec
+```
+
+## Author
+
+👤 **Johan Stiven Tinjacá Tocora**
+
+- Github: [@jstiven01](https://github.com/jstiven01)
+- Twitter: [@TinjacaJohan](https://twitter.com/TinjacaJohan)
+- Linkedin: [Johan Tinjacá](https://www.linkedin.com/in/johanstiventinjaca/)

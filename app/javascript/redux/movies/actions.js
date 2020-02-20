@@ -70,7 +70,7 @@ export const postMovie = movieId => dispatch => {
   dispatch(movieRequest());
   axios
     .get(
-      `http://api.themoviedb.org/3/movie/${movieId}`,
+      `https://api.themoviedb.org/3/movie/${movieId}`,
       {
         params: {
           api_key: '0ff5b80581bf1b540b658c2d699cc617',
